@@ -2,11 +2,11 @@
 #SBATCH --job-name='fastq-trim-crop'
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=8GB
-#SBATCH --output=fastq-trim-crop.stdout.log
+#SBATCH --output=/scratch3/users/mamana/varcall/fastq-trim-crop.stdout.log
 #SBATCH --error=fastq-trim-crop.stderr.log
 #SBATCH --time=96:00:00
 
-wkdir=""
+wkdir="/scratch3/users/mamana/varcall"
 cd ${wkdir}
-nextflow run main.nf \
+nextflow -c /users/mamana/varcall/fastq-trim-crop/test.config run /users/mamana/varcall/fastq-trim-crop/main.nf \
          -profile ilifu,singularity -resume

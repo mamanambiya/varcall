@@ -66,14 +66,14 @@ process run_trimmomatic {
 workflow {
 
     // Get sample info from sample sheet
-    Channel.fromPath( file(params.sample_sheet) )
+    samples = Channel.fromPath( file(params.sample_sheet) )
             .splitCsv(header: true, sep: '\t')
             .map{row ->
                 def sample_id = row['SampleID']
                 def fastq_r1_file = file(row['FastqR1'])
                 def fastq_r2_file = file(row['FastqR2'])
                 return [ sample_id, fastq_r1_file, fastq_r2_file ]
-            }.into{samples}
+            }
             
     run_trimmomatic(samples)
     // trimmomatic_trim_files.collect() | run_multiqc
